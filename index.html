@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Hangman</title>
+  <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script  src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./assets/javascript/game.js"></script>
+  </head>
+
+
+  <body>
+    <div id="title-section">
+      <h1>
+        Hangman!!!
+      </h1>
+      <h3>Legend of Zelda Style!</h3>
+      <h5>letter to match it against the hidden word, if your correct, the letter will reveal itself to you!</h5>
+
+
+      <div class="container">
+         <div id="game">
+           <p id="play">
+             Press play to begin!
+           </p>
+         <p>
+           a paragraph inside the game div
+         </p>
+         <p id="answerWord"></p>
+         <img class="related-image"/>
+       </div>
+       <div id="winLoss">
+        <div class="wins">
+           <h3>Wins</h3>
+           <p id="game-wins"></p>
+       </div>
+       <div class="losses">
+        <h3>losses</h3>
+        <p id="losses"></p>
+       </div>
+     </div>
+     <div class="stats">
+       <h4><span id="guessesRemaining"> Guesses remaining</span></h4>
+       <h4>Guessed Letters</h4>
+       <p id=guessed></p>
+     </div>
+   </div>
+
+
+  </body>
+</html>
