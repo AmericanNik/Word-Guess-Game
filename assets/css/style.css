@@ -1,0 +1,58 @@
+h1{
+    font-size: 1.5rem;
+    margin:10px;
+    font-weight:bold;
+    color:#fff;
+    font-family: 'DM Serif Display', serif;
+}
+
+h1:hover{
+    color:red;
+}
+
+h2{
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin:5px;
+    color:#fff;
+    font-family: 'DM Serif Display', serif;
+    padding-bottom:5px;
+}
+
+
+body{
+    background-image: url("./../images/dekutree.jpg");
+    background-position: center;
+}
+
+.main-header{
+    background-color:#333;
+    text-align:center;
+    padding:5px;
+}
+
+.container{
+    max-width: 680px;
+    text-align: center;
+    background-color: rgba(46, 56, 42, 0.7);
+    padding:50px;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 30px;
+    border-radius: 15px;
+    font-family: 'DM Serif Display', serif;
+    color:white;
+}
+
+#pressPlay{
+    font-size: 1.2rem;
+    padding-bottom:20px;
+}
+
+.leftSide{
+    float: left;
+}
+
+.rightSide{
+    float:right;
+}
