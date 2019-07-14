@@ -1,47 +1,103 @@
+// words list
+var words = ["PRINCESSZELDA", "LINK", "HYRULE", "RUPEE", "SHIEK", "DEKU", "OCARINA", "TEMPLEOFTIME"];
 
-$(document).ready(function(){
+var maxNumGuesses = 8;
+var guessedLetters = [];
+var ansWordArr = [];
+var numGuessesRemaining = 0;
+var numWins = 0;
+var numLosses = 0;
+var isFinished = false;
+var ansWord;
 
-let wordBank = ["Legend of Zelda", "Hyrule", "Princess Zelda", "Link"];
+function setup() {
 
-let letterBank = ["a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+    ansWord = words[Math.floor(Math.random() * words.length)];
 
-let userGuessed = [];
-
-let selectedWordArray = [];
-
-let maxGuesses = 9;
-
-let remainingGuesses = 0;
-
-let wins = 0;
-
-let losses = 0;
-
-let selectedWord = "";
-
-  document.onkeyup = function(){
-  let userGuess = String.fromCharCode(event.keyCode).toLocaleLowerCase();
-
-  console.log("User Guess: ", userGuess);
-
-  };
-
-// game begin
-  function gameBegin(){
-    // reset stats
-      selectedWordArray = [];
-      remainingGuesses = maxGuesses;
-
-    //picks random word
-    selectedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-    console.log(selectedWord);
-  }
-
-  for (i = 0; i < selectedWord.length; i++){
-    selectedWordArray[i] = "_";
-  }
+    ansWordArr = [];
 
 
-  gameBegin();
+    for (var i = 0; i < ansWord.length; i++) {
+        ansWordArr[i] = "_";
+    }
 
-});
+
+    numGuessesRemaining = maxNumGuesses;
+    guessedLetters = [];
+
+
+    updateScreen();
+}
+
+
+function updateScreen() {
+    document.getElementById("numWins").innerText = numWins;
+    document.getElementById("numLosses").innerText = numLosses;
+    document.getElementById("numGuesses").innerText = numGuessesRemaining;
+    document.getElementById("answerWord").innerText = ansWordArr.join("");
+    document.getElementById("guessedLetters").innerText = guessedLetters;
+
+}
+
+
+function checkGuess(letter) {
+    if (guessedLetters.indexOf(letter) === -1) {
+        guessedLetters.push(letter);
+
+        if (ansWord.indexOf(letter) === -1) {
+            numGuessesRemaining--;
+            }
+
+        } else {
+            for (var i = 0; i < ansWord.length; i++) {
+                if (letter === ansWord[i]) {
+                    ansWordArr[i] = letter;
+                }
+            }
+        }
+
+
+};
+
+//function to check if the player is a winner
+function isWinner() {
+    if (ansWordArr.indexOf("_") === -1) {
+        numWins++;
+        isFinished = true;
+}
+}
+//function to check if player is a loser
+function isLoser() {
+    // if the numGuessesRemaining is 0 then -1 numLosses and switch isFinished to true
+    if(numGuessesRemaining <= 0) {
+        numLosses++;
+        isFinished = true;
+    }
+
+}
+
+
+//event listener for key pressed
+document.onkeyup = function(event) {
+    //if isFinished is true then restart the game to the initial setup
+    //and switch isFinished back to false
+    if (isFinished) {
+        setup();
+        isFinished = false;
+    } else {
+        //check to see if only letters A-Z are pressed
+        //functions are executed when user presses A-Z key
+        if(event.keyCode >= 65 && event.keyCode <= 90) {
+            checkGuess(event.key.toUpperCase());
+            updateScreen();
+            isWinner();
+            isLoser();
+        }
+    }
+};
+
+
+setup();
+updateScreen();
+
+console.log(ansWord);
