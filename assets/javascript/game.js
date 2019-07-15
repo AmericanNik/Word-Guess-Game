@@ -31,7 +31,7 @@ $(document).ready(function() {
   function createSpaces() {
     for (i = 0; i < selectedWord.length; i++) {
       spaces.push("-");
-      $("#letterArea").html(spaces);
+  document.getElementById("letterArea").innerHTML = spaces.join(' ')
     }
     return spaces;
   }
