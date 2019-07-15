@@ -8,6 +8,8 @@
 
     <link href="https://fonts.googleapis.com/css?family=Bangers|Josefin+Slab|Gaegu|Rancho|Titan+One|Bowlby+One" rel="stylesheet">
 
+    <script  src="https://code.jquery.com/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -15,32 +17,27 @@
 
 
 <body>
-    <header class="main-header">
+    <header class="title-area">
             <h1>The Legend of Zelda</h1>
             <h2>Word Guess Game!</h2>
     </header>
 
     <main>
         <div class="container">
-            <div class="middle">
-                <p id="pressPlay">Press a key to begin guessing letters!</h3>
-                <p id="answerWord"> </p>
+          <div class="game-area">
+            <h3 id="message"></h3>
+            <p id="letterArea"></p>
+          </div>
+          <div class="stats-area">
+            <p class="remainingGuesses"> Guesses Left: <span id="guessesLeft">9</span></p>
+            <p class="wins-stats"> Wins: <span id="winStats"></span></p>
+            <p class="lose-stats"> Loses: <span id="loseStats"></span></p>
+          </div>
+          <div class="letter-stats">
+            <div class="lettersSelected">
+              <p>Letters Used: <span id="lettersUsed"></span></p>
             </div>
-            <div class="leftSide">
-                <div class="wins">
-                    <h4>Wins</h4>
-                    <p id="numWins"></p>
-                </div>
-                <div class="losses">
-                    <h4>Losses</h4>
-                    <p id="numLosses"></p>
-                </div>
-            </div>
-            <div class="rightSide">
-                <h4><span id="numGuesses"></span> guesses remaining!</h4>
-                <h4>Guessed Letters</h4>
-                <p id="guessedLetters"></p>
-            </div>
+          </div>
         </div>
     </main>
 

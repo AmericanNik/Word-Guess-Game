@@ -1,3 +1,7 @@
+html{
+  height:100%;
+}
+
 h1{
     font-size: 1.5rem;
     margin:10px;
@@ -22,13 +26,26 @@ h2{
 
 body{
     background-image: url("./../images/dekutree.jpg");
+    background-size: cover;
     background-position: center;
 }
 
-.main-header{
+.title-area{
     background-color:#333;
     text-align:center;
     padding:5px;
+    font-size:1.3rem;
+
+
+}
+
+.game-area p{
+  padding:20px;
+  letter-spacing: 7px;
+  font-size: 2rem;
+  background-color:#333;
+  border-radius:7px;
+  margin:30px;
 }
 
 .container{

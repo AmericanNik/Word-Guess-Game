@@ -1,103 +1,123 @@
-// words list
-var words = ["PRINCESSZELDA", "LINK", "HYRULE", "RUPEE", "SHIEK", "DEKU", "OCARINA", "TEMPLEOFTIME"];
+$(document).ready(function() {
 
-var maxNumGuesses = 8;
-var guessedLetters = [];
-var ansWordArr = [];
-var numGuessesRemaining = 0;
-var numWins = 0;
-var numLosses = 0;
-var isFinished = false;
-var ansWord;
-
-function setup() {
-
-    ansWord = words[Math.floor(Math.random() * words.length)];
-
-    ansWordArr = [];
+  let wordBank = ["hyrule", "link", "princesszelda", "deku", "kokiri", "ganandorf", "epona", "ocarina"];
+  let selectedWord;
+  let selectedWordLetters = [];
+  let letterBlanks = [];
+  let wins = 0;
+  let losses = 0;
+  let blanksNumber = 0;
+  let gameContinue = "y"
 
 
-    for (var i = 0; i < ansWord.length; i++) {
-        ansWordArr[i] = "_";
+  //select random word
+
+  selectedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+  console.log(selectedWord);
+  let rightLetter = [];
+  let wrongLetter = [];
+  let spaces = [];
+  let guessesLeft = 9;
+  let numberOfLetters = 0;
+
+  selectedWordLetters = selectedWord.split("");
+  console.log(selectedWordLetters);
+
+  blanksNumber = selectedWord.length;
+
+
+  //create spaces for word
+
+  function createSpaces() {
+    for (i = 0; i < selectedWord.length; i++) {
+      spaces.push("-");
+      $("#letterArea").html(spaces);
     }
+    return spaces;
+  }
+  createSpaces();
+
+  document.onkeyup = function(event) {
+    let userInput = event.key.toLowerCase();
+    console.log(userInput);
 
 
-    numGuessesRemaining = maxNumGuesses;
-    guessedLetters = [];
+    // $(document).keyup(function(event){
+    //   let userInput = event.key.toLowerCase();
+    //   console.log(userInput);
 
-
-    updateScreen();
-}
-
-
-function updateScreen() {
-    document.getElementById("numWins").innerText = numWins;
-    document.getElementById("numLosses").innerText = numLosses;
-    document.getElementById("numGuesses").innerText = numGuessesRemaining;
-    document.getElementById("answerWord").innerText = ansWordArr.join("");
-    document.getElementById("guessedLetters").innerText = guessedLetters;
-
-}
-
-
-function checkGuess(letter) {
-    if (guessedLetters.indexOf(letter) === -1) {
-        guessedLetters.push(letter);
-
-        if (ansWord.indexOf(letter) === -1) {
-            numGuessesRemaining--;
-            }
-
-        } else {
-            for (var i = 0; i < ansWord.length; i++) {
-                if (letter === ansWord[i]) {
-                    ansWordArr[i] = letter;
-                }
-            }
+    if (selectedWord.indexOf(userInput) > -1) {
+      for (i = 0; i < selectedWord.length; i++) {
+        if (selectedWord[i] === userInput) {
+          spaces[i] = userInput;
+          document.getElementById("letterArea").innerHTML = spaces.join("");
         }
-
-
-};
-
-//function to check if the player is a winner
-function isWinner() {
-    if (ansWordArr.indexOf("_") === -1) {
-        numWins++;
-        isFinished = true;
-}
-}
-//function to check if player is a loser
-function isLoser() {
-    // if the numGuessesRemaining is 0 then -1 numLosses and switch isFinished to true
-    if(numGuessesRemaining <= 0) {
-        numLosses++;
-        isFinished = true;
+      }
     }
 
-}
 
+    let matched = true;
+    for (i = 0; i < spaces.length; i++) {
+      console.log(wrongLetter)
+      if (spaces[i] !== (selectedWord.split(""))[i]) {
+        matched = false;
+      }
+    }
+    if (matched === true) {
+      console.log("You win!");
+      wins++;
+      document.getElementById("winStats").innerHTML = wins;
+      document.getElementById("message").innerHTML = "You win!";
 
-//event listener for key pressed
-document.onkeyup = function(event) {
-    //if isFinished is true then restart the game to the initial setup
-    //and switch isFinished back to false
-    if (isFinished) {
-        setup();
-        isFinished = false;
+      console.log(wins);
+      reset();
     } else {
-        //check to see if only letters A-Z are pressed
-        //functions are executed when user presses A-Z key
-        if(event.keyCode >= 65 && event.keyCode <= 90) {
-            checkGuess(event.key.toUpperCase());
-            updateScreen();
-            isWinner();
-            isLoser();
-        }
+      // Push wrong guess into wrongLetter array
+      wrongLetter.push(userInput);
+      // Show which letters were guessed incorrectly on the screen
+      document.getElementById("lettersUsed").innerHTML = wrongLetter.join(", ");
+      // Decrease the number of guesses left
+      guessesLeft--;
+      // Update number of guesses left on the screen
+      document.getElementById("guessesLeft").innerHTML = guessesLeft;
+      console.log(guessesLeft);
+      console.log(wrongLetter);
+
+      if (guessesLeft === 0) {
+        console.log("Sorry, you lose.");
+        losses++;
+        document.getElementById("loseStats").innerHTML = losses;
+        document.getElementById("message").innerHTML = "Sorry, you lose.";
+
+        console.log(losses);
+        reset();
+      }
     }
-};
+  };
 
 
-setup();
-updateScreen();
+  function reset() {
+    guessesLeft = 9;
+    document.getElementById("guessesLeft").innerHTML = guessesLeft;
+    rightLetter = [];
+    wrongLetter = [];
+    document.getElementById("lettersUsed").innerHTML = wrongLetter.join(", ");
+    selectedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
+    console.log(selectedWord);
+    selectedWordLetters = selectedWord.split("");
+    letterBlanks = selectedWordLetters.length;
+    spaces = [];
+    createSpaces();
+    return spaces;
+  }
+  //
+  // console.log(selectedWord.split(""));
+  // console.log(spaces);
 
-console.log(ansWord);
+
+
+
+
+
+
+});
